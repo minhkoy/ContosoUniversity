@@ -1,0 +1,38 @@
+﻿@page
+@model ContosoUniversity.Pages.AboutModel
+
+@{
+    ViewData["Title"] = "Students Statistics";
+    ViewData["Alo"] = "Alo";
+    int i = 0;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>
+            Enrollment Date
+        </th>
+        <th>
+            Students
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Students)
+    {
+        i++;
+        string trClass = String.Empty;
+        if (i <= 2) trClass = "table-success";
+        if (i == 3) trClass = "table-info";
+        if (i >= 4) trClass = "table-warning";
+        <tr class="@trClass">
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+            <td>
+                @item.StudentCount
+            </td>
+        </tr>
+    }
+</table>

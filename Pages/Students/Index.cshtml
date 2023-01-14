@@ -1,0 +1,90 @@
+﻿@page
+@model ContosoUniversity.Pages.Students.IndexModel
+
+@{
+    ViewData["Title"] = "Student List";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter"/>
+            <input type="submit" value="Search" class="btn btn-primary"/> |
+            <a asp-page="./Index">Back to full list</a>
+        </p>
+    </div>
+</form>
+
+@if (Model.Students.Count == 0)
+{
+    <p class="text-danger">There is no student.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Students[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Students[0].FirstMidName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Students[0].EnrollmentDate)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Students)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstMidName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+    var prevDisabled = !Model.Students.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Students.HasNextPage ? "disabled" : "";
+
+
+    <a asp-page="./Index"
+       asp-route-pageIndex="@(Model.Students.PageIndex - 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary @prevDisabled">
+        Previous
+    </a>
+
+    <span class="text-reset m-1">@Model.Students.PageIndex</span>
+
+    <a asp-page="./Index"
+       asp-route-pageIndex="@(Model.Students.PageIndex + 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       class="btn btn-primary @nextDisabled">
+        Next
+    </a>
+}
+
