@@ -1,0 +1,34 @@
+﻿@page
+@model ContosoUniversity.Pages.Departments.IndexModel
+@{
+
+}
+<table class="table table-bordered text-center">
+    <thead class="table-info text-center">
+    <th>@Html.DisplayNameFor((model) => model.Departments[0].DepartmentID)</th>
+    <th>@Html.DisplayNameFor((model) => model.Departments[0].Name)</th>
+    <th>@Html.DisplayNameFor((model) => model.Departments[0].Administrator)</th>
+    <th>@Html.DisplayNameFor((model) => model.Departments[0].Budget)</th>
+    <th>Action</th>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Departments)
+    {
+        <tr>
+            <td>@Html.DisplayFor((modelItem) => item.DepartmentID)</td>
+            <td>@Html.DisplayFor((modelItem) => item.Name)</td>
+            <td>@Html.DisplayFor((modelItem) => item.Administrator)</td>
+            <td>@Html.DisplayFor((modelItem) => item.Budget)</td>
+            <td><a asp-page="./Delete" asp-route-id="@item.DepartmentID">
+                <button class="btn btn-danger">Delete</button>
+            </a></td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<div class="position-relative">
+    <a asp-page="./Create">
+        <button class="btn btn-primary position-absolute top-0 start-50 translate-middle mt-3">Create new Department</button>
+    </a>
+</div>
