@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ContosoUniversity.Models
@@ -23,7 +21,7 @@ namespace ContosoUniversity.Models
         public DateTime StartDate { get; set; }
 
         //Foreign key
-        public int? InstructorID { get; set; }
+        [Display(Name = "Instructor")] public int? InstructorID { get; set; }
 
         //Navigation property
         public Instructor Administrator { get; set; } //Admin is also an instructor
